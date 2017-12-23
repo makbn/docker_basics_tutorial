@@ -23,7 +23,7 @@ in few next paragraphs we will talk about virtualization technology!you can jump
 
 ### Pre-Virtualization World
 
-day 0, you're alone, no virtual machines , no hypervisor hole damn resources is yours!
+day 0, you're alone, no virtual machines , no hypervisor hole damn resources are yours!
 
 - **benefits**:
 
