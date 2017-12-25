@@ -73,6 +73,10 @@ there are two major types of hypervisor :
 
 Moreover, virtualization technologies provide a virtual environment for not only executing applications but also for storage, memory, and networking
 
+
+
+![VM](https://www.docker.com/sites/default/files/VM%402x.png)
+
 - **benefits**:
 
   - pay as need 
@@ -107,25 +111,7 @@ Moreover, virtualization technologies provide a virtual environment for not only
 
 Container virtualization (often referred as operating system virtualization) is more than just a different kind of hypervisor. Containers use the **host operating system **as their base, and **not** the hypervisor. Rather than virtualizing the hardware (which requires full virtualized operating system images for each guest), containers virtualize the OS itself, **sharing the host OS kernel** and its resources with both the host and other containers.
 
-
-
-———————|——————|——————|——————
-
-|Container #1 |Container #2|Container #3|Container #4|         
-
-|         App        |         App       |        App        |         App        |
-
-|    Bins/Libs    |    Bins/Libs   |    Bins/Libs   |    Bins/Libs    |     
-
-———————|——————|——————|——————
-
-|                                   Container Engine                                   |
-
-———————-——————-——————---——————
-
-|                                               OS                                                 |       
-
-———————-——————-——————---——————
+![container](https://www.docker.com/sites/default/files/Container%402x.png)
 
 
 
@@ -140,6 +126,7 @@ Container virtualization (often referred as operating system virtualization) is 
   - fast boot 
   - energy efficient
   - consistent environment
+  - layered filesystem
 
   ​
 
@@ -149,3 +136,10 @@ Container virtualization (often referred as operating system virtualization) is 
   - **Persistent data storage is complicated**. By design, all of the data inside a container disappears forever when the container shuts down, unless you save it somewhere else first. There are ways to save data persistently in Docker, such as Docker Data Volumes, but this is arguably a challenge that still has yet to be addressed in a seamless way.
   - **Graphical applications don't work well**. Docker was designed as a solution for deploying server applications that don't require a graphical interface. While there are some creative strategies (such as X11 video forwarding) that you can use to run a GUI app inside a container, these solutions are clunky at best.
   - **Not all applications benefit from containers**. In general, only applications that are designed to run as a set of discreet microservices stand to gain the most from containers. Otherwise, Docker's only real benefit is that it can simplify application delivery by providing an easy packaging mechanism.
+
+## Docker Performance and architecture
+
+Docker uses a **client-server** architecture. The **Docker *client*** talks to the **Docker *daemon***, which does the heavy lifting of building, running, and distributing your Docker containers. The Docker client and daemon *can* run on the same system, or you can connect a Docker client to a remote Docker daemon. The Docker client and daemon communicate using a REST API, over UNIX sockets or a network interface.
+
+![Docker Achitecture](https://docs.docker.com/engine/article-img/architecture.svg)
+
