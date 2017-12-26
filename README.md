@@ -261,7 +261,65 @@ A container is defined by its image as well as any configuration options you pro
 
 # Docker Basic Commands
 
+## `docker run`
+
+Run a command in a new container
+
+```
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+```
+
+### options
+
+| Name, shorthand    | Default | Description                              |
+| ------------------ | ------- | ---------------------------------------- |
+| --env , -e         |         | Set environment variables                |
+| --expose           |         | Expose a port or a range of ports        |
+| --rm               |         | Automatically remove the container when it exits |
+| --tty , -t         |         | Allocate a pseudo-TTY                    |
+| --interactive , -i |         | Keep STDIN open even if not attached     |
+| -d                 |         | run in detached mode all the time        |
+
+
+
+### example
+
+```ba
+docker run -it --name ubuntu_cont ubuntu:latest bash
+```
 
 
 
 
+
+
+
+## `docker start`
+
+Start one or more stopped containers in detached mode
+
+```
+docker start [OPTIONS] CONTAINER [CONTAINER...]
+```
+
+### options
+
+| Name, shorthand    | Default | Description              |
+| ------------------ | ------- | ------------------------ |
+| --interactive , -i |         | Attach container’s STDIN |
+
+
+
+### example
+
+```ba
+docker start -i ca765vb
+```
+
+
+
+
+
+
+
+## `docker ps`
