@@ -139,7 +139,129 @@ Container virtualization (often referred as operating system virtualization) is 
 
 ## Docker Performance and architecture
 
+### Architecture
+
 Docker uses a **client-server** architecture. The **Docker *client*** talks to the **Docker *daemon***, which does the heavy lifting of building, running, and distributing your Docker containers. The Docker client and daemon *can* run on the same system, or you can connect a Docker client to a remote Docker daemon. The Docker client and daemon communicate using a REST API, over UNIX sockets or a network interface.
 
 ![Docker Achitecture](https://docs.docker.com/engine/article-img/architecture.svg)
+
+### Docker on Linux
+
+On Linux systems, Docker directly leverages the kernel of the host system, and file system mounts are native. (home sweet home)
+
+
+
+### Docker on WIndows
+
+>  In Docker for Windows does each container run in separate VM?
+
+
+
+> There are two types of Windows containers... Windows Containers & Hyper-V Containers. Windows Containers work the same way you know Linux based containers work... one or more in a host where the host can be a VM. Hyper-V containers are different though in that they run a single container within a tiny Hyper-V VM.
+>
+> We interviewed the guy who owns the Windows Container story for Microsoft recently on our podcast if you're interested in learning not only more about this, but where they are going & helping. I found it fascinating how much an old engineering team like Windows is contributing to an open source project!
+>
+> [http://www.microsoftcloudshow.com/podcast/Episodes/137-windows-containers-are-coming-talking-to-taylor-brown-about-the-container-wave-coming-to-the-microsoft-world480](http://www.microsoftcloudshow.com/podcast/Episodes/137-windows-containers-are-coming-talking-to-taylor-brown-about-the-container-wave-coming-to-the-microsoft-world)
+
+
+
+### Docker on Mac
+
+In June 2016 Docker announced **Docker for Mac**. The “new” way to run Docker on Mac with much easier installation and a more Linux-y experience for Docker users. **Docker for Mac** still starts a virtual machine (**even though it is super hidden**). It also brought its own hypervisor **hyperkit** and shared file system **osxfs**. Unfortunately, “osxfs” wasn’t very fast, and from the beginning there have been long discussions about it ([Docker](https://forums.docker.com/t/file-access-in-mounted-volumes-extremely-slow-cpu-bound/8076/23), [Github](https://github.com/docker/for-mac/issues/77)).
+
+Docker has [steadily been working](https://docs.docker.com/docker-for-mac/osxfs/#performance-issues-solutions-and-roadmap) on performance improvements for **Docker for Mac** and [released improvements](https://docs.docker.com/docker-for-mac/osxfs-caching/) with 17.04 CE. 17.04 CE now brings new performance flags to mountpoints of **Docker Volumes (“**delegated” and “cached”**)**. Docker [talks about an 2x — 3.5x improvement](https://docs.docker.com/docker-for-mac/osxfs/#technology) when comparing **Docker for Mac** 17.04 CE vs older versions.
+
+
+
+# Hello World
+
+now we'll run our first docker image and create a new container:
+
+```bash
+docker run hello-world
+```
+
+and the result is:
+
+```bash
+Unable to find image 'hello-world:latest' locally
+docker: Error response from daemon: error parsing HTTP 403 response body: invalid character '<' looking for beginning of value: "<html><body><h1>403 Forbidden</h1>\nSince Docker is a US company, we must comply with US export control regulations. In an effort to comply with these, we now block all IP addresses that are located in Cuba, Iran, North Korea, Republic of Crimea, Sudan, and Syria. If you are not in one of these cities, countries, or regions and are blocked, please reach out to https://support.docker.com\n</body></html>\n\n".
+See 'docker run --help'.
+```
+
+lets see what happend! read the first line of output,we have diffrent scenario when we run a docker image:
+
+- scenario 1
+
+  after you try tu run hello-world image, docker search for this image on your local machine,if its stored there from befor, new container create from image will be create and sart
+
+- scenario 2
+
+  but what if docker cant find image locally?**if you're not connected from Iran, North Korea, Republic of Crimea, Sudan, and Syria**, in this scenario docker should search on an online repository to find this image!this repositories called **Registery**! after finding image docker will pull this requested image to your local machine storage and start your image to create new **container**
+
+  but if you're a citizen of banned regions probeblly you will see this error:
+
+  ```bash
+  docker: Error response from daemon: error parsing HTTP 403 response body: invalid character '<' looking for beginning of value: "<html><body><h1>403 Forbidden</h1>\nSince Docker is a US company, we must comply with US export control regulations. In an effort to comply with these, we now block all IP addresses that are located in Cuba, Iran, North Korea, Republic of Crimea, Sudan, and Syria. If you are not in one of these cities, countries, or regions and are blocked, please reach out to https://support.docker.com\n</body></html>\n\n".
+  See 'docker run --help'.
+  ```
+
+  ok all you need is a VPN!
+
+ok lets try again:
+
+```bash
+makbns-MacBook-Pro:~ makbn$ docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+ca4f61b1923c: Pull complete 
+Digest: sha256:445b2fe9afea8b4aa0b2f27fe49dd6ad130dfe7a8fd0832be5de99625dad47cd
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+
+```
+
+docker couldn't find image locally then tries to download it from registery!after download finished, image saved locally and stared by docker deamon!
+
+- [Where are Docker images stored on the host machine](https://stackoverflow.com/questions/19234831/where-are-docker-images-stored-on-the-host-machine)?
+
+
+
+### Docker objects
+
+When you use Docker, you are creating and using images, containers, networks, volumes, plugins, and other objects. This section is a brief overview of some of those objects.
+
+#### IMAGES
+
+An *image* is a read-only template with instructions for creating a Docker container. Often, an image is *based on*another image, with some additional customization. For example, you may build an image which is based on the `ubuntu` image, but installs the Apache web server and your application, as well as the configuration details needed to make your application run.
+
+You might create your own images or you might only use those created by others and published in a registry. To build your own image, you create a *Dockerfile* with a simple syntax for defining the steps needed to create the image and run it. Each instruction in a Dockerfile creates a layer in the image. When you change the Dockerfile and rebuild the image, only those layers which have changed are rebuilt. This is part of what makes images so lightweight, small, and fast, when compared to other virtualization technologies.
+
+#### CONTAINERS
+
+A container is a runnable instance of an image. You can create, start, stop, move, or delete a container using the Docker API or CLI. You can connect a container to one or more networks, attach storage to it, or even create a new image based on its current state.
+
+By default, a container is relatively well isolated from other containers and its host machine. You can control how isolated a container’s network, storage, or other underlying subsystems are from other containers or from the host machine.
+
+A container is defined by its image as well as any configuration options you provide to it when you create or start it. When a container is removed, any changes to its state that are not stored in persistent storage disappear.
+
+
+
+# Docker Basic Commands
+
+
+
+
 
