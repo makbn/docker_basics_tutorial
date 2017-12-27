@@ -510,7 +510,7 @@ RUN echo 'we are running some # of cool things'
 MAINTAINER mehdi akbarian (mehdi74akbarian@gmail.com)
 ```
 
-the **[FROM](https://docs.docker.com/reference/builder/#from)**command sets the base image for the rest of the instructions. 
+the **[FROM](https://docs.docker.com/reference/builder/#from)** command sets the base image for the rest of the instructions. 
 
 the [**RUN**](https://docs.docker.com/reference/builder/#run) instruction is used to execute any commands 
 
