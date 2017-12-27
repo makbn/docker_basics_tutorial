@@ -206,9 +206,9 @@ lets see what happend! read the first line of output,we have diffrent scenario w
   See 'docker run --help'.
   ```
 
-  ok all you need is a VPN!
+  All you need is a VPN!
 
-ok lets try again:
+OK, lets try again:
 
 ```bash
 makbns-MacBook-Pro:~ makbn$ docker run hello-world
@@ -445,6 +445,48 @@ dockr exec [OPTIONS] CONTAINER [ARGS...]
 - COMMAND should be an executable, a chained or a quoted command will not work. Example:
   -  `docker exec -ti my_container "echo a && echo b"` will not work, but 
   - `docker exec -ti my_container sh -c "echo a && echo b"` will.
+
+### example
+
+```bas
+docker exec -it 120 bash
+```
+
+
+
+
+
+
+
+# How to create your own images
+
+before starting to create our own image its good to know more about docker images structure:
+
+- Images are read only templates used to create containers.
+- Images are created with the `docker build` command, either by us or by other docker users.
+- Images are composed of layers of other images.
+- Images are stored in a Docker registry.
+
+there are two ways to create new image, **change an existing image** and **create a Dockerfile**:
+
+### `docker commit`
+
+for create new image from an existing image you should create a container from source image and make your change on container and commit your change with `docker commit` to create new image!
+
+
+
+```
+docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+```
+
+| Name, shorthand | Default | Description                              |
+| --------------- | ------- | ---------------------------------------- |
+| --author , -a   |         | Author (e.g., “John Hannibal Smith [hannibal@a-team.com](mailto:hannibal@a-team.com)”) |
+| --change , -c   |         | Apply Dockerfile instruction to the created image |
+| --message , -m  |         | Commit message                           |
+| --pause , -p    | true    | Pause container during commit            |
+
+//TODO: dockerfile
 
 
 
