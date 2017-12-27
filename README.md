@@ -280,8 +280,6 @@ docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 | --interactive , -i |         | Keep STDIN open even if not attached     |
 | -d                 |         | run in detached mode all the time        |
 
-
-
 ### example
 
 ```ba
@@ -308,8 +306,6 @@ docker start [OPTIONS] CONTAINER [CONTAINER...]
 | ------------------ | ------- | ------------------------ |
 | --interactive , -i |         | Attach container’s STDIN |
 
-
-
 ### example
 
 ```ba
@@ -323,3 +319,75 @@ docker start -i ca765vb
 
 
 ## `docker ps`
+
+list of containers
+
+```bas
+docker ps [OPTIONS]
+```
+
+### options
+
+| Name, shorthand | Default | Description         |
+| --------------- | ------- | ------------------- |
+| —all , -a       |         | show all containers |
+
+### example
+
+```bash
+docker ps -a
+```
+
+
+
+
+
+
+
+## `docker images`
+
+list of images
+
+```bash
+docker images [OPTIONS] [REPOSITORY[:TAG]]
+```
+
+### options
+
+| Name, shorthand | Default | Description     |
+| --------------- | ------- | --------------- |
+| —all , -a       |         | show all images |
+
+- docker image have intermediate layers that increase reusability, decrease disk usage and spped up `docker build` by allowing each step to be cached! these intermediat layer are not shoen by default.
+
+### example
+
+```bas
+docker images -a
+```
+
+
+
+
+
+## `docker stop`
+
+stop one or more running container
+
+```bash
+docker stop [OPTIONS] CONTAINER [CONTAINER...]
+```
+
+### options
+
+| Name, shorthand | Default | Description                              |
+| --------------- | ------- | ---------------------------------------- |
+| —time, -t       |         | seconds to wait for stop before killing it |
+
+### example
+
+```bas
+docker stop -t 100 34tfer 
+```
+
+
