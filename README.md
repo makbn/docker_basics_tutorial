@@ -481,14 +481,40 @@ docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
 
 | Name, shorthand | Default | Description                              |
 | --------------- | ------- | ---------------------------------------- |
-| --author , -a   |         | Author (e.g., “John Hannibal Smith [hannibal@a-team.com](mailto:hannibal@a-team.com)”) |
+| --author , -a   |         | Author ( “Mehdi Akbarian Rastaghi [mehdi74akbarian@gmail.com](mailto:mehdi74akbarian@gmail.com)”) |
 | --change , -c   |         | Apply Dockerfile instruction to the created image |
 | --message , -m  |         | Commit message                           |
 | --pause , -p    | true    | Pause container during commit            |
 
 //TODO: dockerfile
 
+### `docker build`
 
+
+
+Docker can build images automatically by reading the instructions from a `Dockerfile`. A `Dockerfile` is a text document that contains all the commands a user could call on the command line to assemble an image. Using `docker build` users can create an automated build that executes several command-line instructions in succession.
+
+Let us start with the the overall flow, which goes something like this:
+
+1. You create a Dockerfile with the required instructions.
+2. Then you will use the docker build command to create a Docker image based on the Dockerfile that you created in step 1.
+
+now, open up the vi editor and create our first Dockerfile as shown below:
+
+```
+From ubuntu:latest
+
+# run echo command (during build)
+RUN echo 'we are running some # of cool things'
+
+MAINTAINER mehdi akbarian (mehdi74akbarian@gmail.com)
+```
+
+the **[FROM](https://docs.docker.com/reference/builder/#from)**command sets the base image for the rest of the instructions. 
+
+the [**RUN**](https://docs.docker.com/reference/builder/#run) instruction is used to execute any commands 
+
+the **MAINTAINER** command tells who is the author of the generated images.
 
 
 
