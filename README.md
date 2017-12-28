@@ -490,7 +490,9 @@ docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
 
 ### `docker build`
 
-
+```
+docker build [OPTIONS] PATH | URL | -
+```
 
 Docker can build images automatically by reading the instructions from a `Dockerfile`. A `Dockerfile` is a text document that contains all the commands a user could call on the command line to assemble an image. Using `docker build` users can create an automated build that executes several command-line instructions in succession.
 
@@ -507,14 +509,123 @@ From ubuntu:latest
 # run echo command (during build)
 RUN echo 'we are running some # of cool things'
 
+RUN echo 'we are running some # of cool things again'
+
 MAINTAINER mehdi akbarian (mehdi74akbarian@gmail.com)
 ```
 
-the **[FROM](https://docs.docker.com/reference/builder/#from)** command sets the base image for the rest of the instructions. 
+the **[FROM](https://docs.docker.com/reference/builder/#from)**command sets the base image for the rest of the instructions. 
 
 the [**RUN**](https://docs.docker.com/reference/builder/#run) instruction is used to execute any commands 
 
 the **MAINTAINER** command tells who is the author of the generated images.
+
+
+
+Now, save the file and come back to the prompt.
+
+```ba
+docker build -t my_repo/ubuntu:dockerfile -f /Users/makbn/Desktop/dockerfile_dir/Dockerfile .
+```
+
+and the result is:
+
+```ba
+makbns-MacBook-Pro:dockerfile_dir makbn$ docker build -t my_repo/ubuntu:dockerfile -f /Users/makbn/Desktop/dockerfile_dir/Dockerfile .
+Sending build context to Docker daemon  2.048kB
+Step 1/4 : FROM ubuntu:latest
+ ---> 747cb2d60bbe
+Step 2/4 : RUN echo 'we are running some # of cool things'
+ ---> Using cache
+ ---> 613fbf091316
+Step 3/4 : CMD ping localhost
+ ---> Running in ee923ff849a4
+ ---> f3bb5c7c36ed
+Removing intermediate container ee923ff849a4
+Step 4/4 : MAINTAINER mehdi akbarian (mehdi74akbarian@gmail.com)
+ ---> Running in b1d91fd2dd9b
+ ---> 915046d9576f
+Removing intermediate container b1d91fd2dd9b
+Successfully built 915046d9576f
+Successfully tagged my_repo/ubuntu:dockerfile
+```
+
+
+
+- Each RUN command will execute the command on the top writable layerof the container, then commit the container as a new image.
+- The new image is used for the next step in the Dockerfile. So each RUN instruction will create a new image layer.
+- It is recommended to chain the RUN instructions in the Dockerfile to reduce the number of image layers it creates.
+
+example:
+
+```
+From ubuntu:latest
+
+RUN apt-get update
+RUN apt-get install -y git
+RUN apt-get instal -y vim
+```
+
+result:
+
+```b
+makbns-MacBook-Pro:dockerfile_dir makbn$ docker build -t my_repo/ubuntu:dockerfile -f /Users/makbn/Desktop/dockerfile_dir/Dockerfile .
+Sending build context to Docker daemon  2.048kB
+Step 1/4 : FROM ubuntu:latest
+ ---> 747cb2d60bbe
+Step 2/4 : RUN apt-get update
+ ---> Using cache
+ ---> 6f046193d94a
+Step 3/4 : RUN apt-get install -y git
+ ---> Using cache
+ ---> 0234fac19063
+Step 4/4 : RUN apt-get install -y vim
+ ---> Running in 063aa832c462
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  file libgpm2 libmagic1 libmpdec2 libpython3.5 libpython3.5-minimal
+  libpython3.5-stdlib mime-support vim-common vim-runtime
+...
+Processing triggers for libc-bin (2.23-0ubuntu9) ...
+ ---> 1fa2877725e9
+Removing intermediate container 063aa832c462
+Successfully built 1fa2877725e9
+Successfully tagged my_repo/ubuntu:dockerfile
+```
+
+- using cache?
+
+this file takes 4 steps to build but with chaining the RUN instructions we can reduce the number of image layers:
+
+```
+From ubuntu:latest
+
+RUN apt-get update && apt-get install -y \ git \ vim
+```
+
+just 2 steps!
+
+
+
+### CMD
+
+The command CMD, similarly to RUN, can be used for executing a specific command. However, unlike RUN it is not executed during build, but when a container is instantiated using the image being built. Therefore, it should be considered as an initial, default command that gets executed (i.e. run) with the creation of containers based on the image.
+
+**To clarify:** an example for CMD would be running an application upon creation of a container which is already installed using RUN (e.g. RUN apt-get install …) inside the image. This default application execution command that is set with CMD becomes the default and replaces any command which is passed during the creation.
+
+```b
+From ubuntu:latest
+
+RUN apt-get update
+RUN apt-get install -y git
+RUN apt-get install -y vim
+
+CMD ["echo", "hello world"]
+```
+
+
 
 
 
