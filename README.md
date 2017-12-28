@@ -458,6 +458,57 @@ docker exec -it 120 bash
 
 
 
+# `docker cp`
+
+Copy files/folders between a container and the local filesystem
+
+```bash
+docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
+```
+
+### example
+
+```ba
+docker cp /file_from_host my_cnt:/dir_in_cnt/
+```
+
+
+
+
+
+
+
+# `docker rm`
+
+Remove one or more containers
+
+```bash
+docker rm [OPTIONS] CONTAINER [CONTAINER...]
+```
+
+### options
+
+| Name, shorthand | Default | Description                              |
+| --------------- | ------- | ---------------------------------------- |
+| --force , -f    |         | Force the removal of a running container (uses SIGKILL) |
+| --link , -l     |         | Remove the specified link                |
+| --volumes , -v  |         | Remove the volumes associated with the container |
+
+### example
+
+```ba
+docker rm 34fg 6hfg 
+```
+
+
+
+# Lifecycle of Docker Container
+
+![Lifecycle](https://cdn-images-1.medium.com/max/2000/1*vca4e-SjpzSL5H401p4LCg.png)
+
+
+
 # How to create your own images
 
 before starting to create our own image its good to know more about docker images structure:
@@ -558,7 +609,7 @@ Successfully tagged my_repo/ubuntu:dockerfile
 
 example:
 
-```
+```dockerfile
 From ubuntu:latest
 
 RUN apt-get update
@@ -599,7 +650,7 @@ Successfully tagged my_repo/ubuntu:dockerfile
 
 this file takes 4 steps to build but with chaining the RUN instructions we can reduce the number of image layers:
 
-```
+```dockerfile
 From ubuntu:latest
 
 RUN apt-get update && apt-get install -y \ git \ vim
@@ -615,7 +666,7 @@ The command CMD, similarly to RUN, can be used for executing a specific command.
 
 **To clarify:** an example for CMD would be running an application upon creation of a container which is already installed using RUN (e.g. RUN apt-get install …) inside the image. This default application execution command that is set with CMD becomes the default and replaces any command which is passed during the creation.
 
-```b
+```dockerfile
 From ubuntu:latest
 
 RUN apt-get update
@@ -623,6 +674,50 @@ RUN apt-get install -y git
 RUN apt-get install -y vim
 
 CMD ["echo", "hello world"]
+```
+
+
+
+### COPY and ADD
+
+The `COPY` instruction copies new files or directories from `<src>` and adds them to the filesystem of the container at the path `<dest>`.
+
+```ba
+COPY <src>... <dest>
+```
+
+- ADD?
+
+### EXPOSE
+
+```
+EXPOSE <port> [<port>/<protocol>...]
+```
+
+The `EXPOSE` instruction informs Docker that the container listens on the specified network ports at runtime. You can specify whether the port listens on TCP or UDP, and the default is TCP if the protocol is not specified.
+
+
+
+### example
+
+```dockerfile
+FROM ubuntu
+MAINTAINER Mehdi akbarian
+RUN apt-get update
+RUN apt-get install -y nginx
+EXPOSE 80
+```
+
+The ENTRYPOINT is then running the nginx executable and we are using the EXPOSE command here to inform what port the container will be listening on.
+
+- build & run
+
+```b
+docker run -it -p80:80 my_repo/ubuntu:nginx bash
+```
+
+```ba
+/etc/init.d/nginx start
 ```
 
 
