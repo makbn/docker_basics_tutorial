@@ -31,7 +31,7 @@ In a virtualized environment there are three major components:
 
 ### Pre-Virtualization World
 
-day 0, you're alone, no virtual machines , no hypervisor hole damn resources is yours!each application run on a dedicated server with a host OS.
+day 0, you're alone, no virtual machines , no hypervisor oh God whole damn resources are yours!each application run on a dedicated server with a goddamn super-fast host OS. but does God really forget us?
 
 - **benefits**:
 
@@ -56,11 +56,10 @@ day 0, you're alone, no virtual machines , no hypervisor hole damn resources is 
 
   - hard to migrate
 
-    ​
 
 ### Hypervisor-based Virtualization
 
-i believe that God sent **hypervisors** to save our lives!The hypervisor or virtual machine manager (VMM) **is generally a program or a combination of software and hardware that allows the abstraction of the underlying physical hardware**.
+i believe that God sent **hypervisors** to save our money!The hypervisor or virtual machine manager (VMM) **is generally a program or a combination of software and hardware that allows the abstraction of the underlying physical hardware**.
 
 there are two major types of hypervisor :
 
@@ -81,7 +80,7 @@ Moreover, virtualization technologies provide a virtual environment for not only
 
   - pay as need 
 
-  - cost efficient 
+  - cost efficient or sth like that
 
   - security(isolated context for deploying applications)
 
@@ -102,18 +101,16 @@ Moreover, virtualization technologies provide a virtual environment for not only
   - overhead
 
   - slow deploy
+  
+  - not so frugel
 
   - security(opens the door to a new and unexpected form of phishing)
-
-    ​
 
 ### container-based Virtualization
 
 Container virtualization (often referred as operating system virtualization) is more than just a different kind of hypervisor. Containers use the **host operating system **as their base, and **not** the hypervisor. Rather than virtualizing the hardware (which requires full virtualized operating system images for each guest), containers virtualize the OS itself, **sharing the host OS kernel** and its resources with both the host and other containers.
 
 ![container](https://www.docker.com/sites/default/files/Container%402x.png)
-
-
 
 - **benefits**:
 
@@ -127,15 +124,16 @@ Container virtualization (often referred as operating system virtualization) is 
   - energy efficient
   - consistent environment
   - layered filesystem
-
-  ​
+  - easy CI/CD
+  - easy versioning 
+  - super easy configuration
 
 - **disadvantage**:
 
   - **Containers don't run at bare-metal speeds**. Containers consume resources more efficiently than virtual machines. But containers are still subject to performance overhead due to overlay networking, interfacing between containers and the host system and so on. If you want 100 percent bare-metal performance, you need to use bare metal, not containers.
   - **Persistent data storage is complicated**. By design, all of the data inside a container disappears forever when the container shuts down, unless you save it somewhere else first. There are ways to save data persistently in Docker, such as Docker Data Volumes, but this is arguably a challenge that still has yet to be addressed in a seamless way.
   - **Graphical applications don't work well**. Docker was designed as a solution for deploying server applications that don't require a graphical interface. While there are some creative strategies (such as X11 video forwarding) that you can use to run a GUI app inside a container, these solutions are clunky at best.
-  - **Not all applications benefit from containers**. In general, only applications that are designed to run as a set of discreet microservices stand to gain the most from containers. Otherwise, Docker's only real benefit is that it can simplify application delivery by providing an easy packaging mechanism.
+  - **Not all applications benefit from containers**. In general, only applications that are designed to run as a set of discreet microservices stand to gain the most from containers. Otherwise, Docker's only real benefit is that it can simplify application delivery by providing an easy packaging mechanism. honestly i mean micro-services!
 
 ## Docker Performance and architecture
 
@@ -149,8 +147,6 @@ Docker uses a **client-server** architecture. The **Docker *client*** talks to t
 
 On Linux systems, Docker directly leverages the kernel of the host system, and file system mounts are native. (home sweet home)
 
-
-
 ### Docker on WIndows
 
 >  In Docker for Windows does each container run in separate VM?
@@ -159,7 +155,7 @@ On Linux systems, Docker directly leverages the kernel of the host system, and f
 
 > There are two types of Windows containers... Windows Containers & Hyper-V Containers. Windows Containers work the same way you know Linux based containers work... one or more in a host where the host can be a VM. Hyper-V containers are different though in that they run a single container within a tiny Hyper-V VM.
 >
-> We interviewed the guy who owns the Windows Container story for Microsoft recently on our podcast if you're interested in learning not only more about this, but where they are going & helping. I found it fascinating how much an old engineering team like Windows is contributing to an open source project!
+> We (not me) interviewed the guy who owns the Windows Container story for Microsoft recently on our podcast if you're interested in learning not only more about this, but where they are going & helping. I found it fascinating how much an old engineering team like Windows is contributing to an open source project!
 >
 > [http://www.microsoftcloudshow.com/podcast/Episodes/137-windows-containers-are-coming-talking-to-taylor-brown-about-the-container-wave-coming-to-the-microsoft-world480](http://www.microsoftcloudshow.com/podcast/Episodes/137-windows-containers-are-coming-talking-to-taylor-brown-about-the-container-wave-coming-to-the-microsoft-world)
 
@@ -169,7 +165,7 @@ On Linux systems, Docker directly leverages the kernel of the host system, and f
 
 In June 2016 Docker announced **Docker for Mac**. The “new” way to run Docker on Mac with much easier installation and a more Linux-y experience for Docker users. **Docker for Mac** still starts a virtual machine (**even though it is super hidden**). It also brought its own hypervisor **hyperkit** and shared file system **osxfs**. Unfortunately, “osxfs” wasn’t very fast, and from the beginning there have been long discussions about it ([Docker](https://forums.docker.com/t/file-access-in-mounted-volumes-extremely-slow-cpu-bound/8076/23), [Github](https://github.com/docker/for-mac/issues/77)).
 
-Docker has [steadily been working](https://docs.docker.com/docker-for-mac/osxfs/#performance-issues-solutions-and-roadmap) on performance improvements for **Docker for Mac** and [released improvements](https://docs.docker.com/docker-for-mac/osxfs-caching/) with 17.04 CE. 17.04 CE now brings new performance flags to mountpoints of **Docker Volumes (“**delegated” and “cached”**)**. Docker [talks about an 2x — 3.5x improvement](https://docs.docker.com/docker-for-mac/osxfs/#technology) when comparing **Docker for Mac** 17.04 CE vs older versions.
+Docker has [steadily been working](https://docs.docker.com/docker-for-mac/osxfs/#performance-issues-solutions-and-roadmap) on performance improvements for **Docker for Mac** and [released improvements](https://docs.docker.com/docker-for-mac/osxfs-caching/) with 17.04 CE. 17.04 CE now brings new performance flags to mountpoints of **Docker Volumes (“**delegated” and “cached”**)**. Docker [talks about an 2x — 3.5x improvement](https://docs.docker.com/docker-for-mac/osxfs/#technology) when comparing **Docker for Mac** 17.04 CE vs older versions. I mean don't use docker for mac as a production level environment.
 
 
 
