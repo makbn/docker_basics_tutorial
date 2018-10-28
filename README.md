@@ -31,7 +31,7 @@ In a virtualized environment there are three major components:
 
 ### Pre-Virtualization World
 
-day 0, you're alone, no virtual machines , no hypervisor oh God whole damn resources are yours!each application run on a dedicated server with a goddamn super-fast host OS. but does God really forget us?
+Day 0, you're alone, no virtual machines , no hypervisor oh God whole damn resources are yours!each application run on a dedicated server with a goddamn super-fast host OS. but does God really forget us?
 
 - **benefits**:
 
