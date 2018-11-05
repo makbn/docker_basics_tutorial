@@ -72,10 +72,6 @@ there are two major types of hypervisor :
 
 Moreover, virtualization technologies provide a virtual environment for not only executing applications but also for storage, memory, and networking
 
-
-
-![VM Vs. Container](https://blog.netapp.com/wp-content/uploads/2016/03/Screen-Shot-2018-03-20-at-9.24.09-AM-1024x548.png)
-
 - **benefits**:
 
   - pay as need 
