@@ -140,7 +140,7 @@ Container virtualization (often referred as operating system virtualization) is 
 
 Docker uses a **client-server** architecture. The **Docker *client*** talks to the **Docker *daemon***, which does the heavy lifting of building, running, and distributing your Docker containers. The Docker client and daemon *can* run on the same system, or you can connect a Docker client to a remote Docker daemon. The Docker client and daemon communicate using a REST API, over UNIX sockets or a network interface.
 
-![Docker Achitecture](https://docs.docker.com/engine/article-img/architecture.svg)
+![Docker Achitecture](https://hahoangv.files.wordpress.com/2016/08/docker_6.png?w=816&h=9999)
 
 ### Docker on Linux
 
