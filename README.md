@@ -166,6 +166,15 @@ In June 2016 Docker announced **Docker for Mac**. The “new” way to run Docke
 
 Docker has [steadily been working](https://docs.docker.com/docker-for-mac/osxfs/#performance-issues-solutions-and-roadmap) on performance improvements for **Docker for Mac** and [released improvements](https://docs.docker.com/docker-for-mac/osxfs-caching/) with 17.04 CE. 17.04 CE now brings new performance flags to mountpoints of **Docker Volumes (“**delegated” and “cached”**)**. Docker [talks about an 2x — 3.5x improvement](https://docs.docker.com/docker-for-mac/osxfs/#technology) when comparing **Docker for Mac** 17.04 CE vs older versions. I mean don't use docker for mac as a production level environment.
 
+Mountpoint flags:
+* `consistent`: perfect consistency (host and container have an identical view of the mount at all times)
+
+* `cached`: the host’s view is authoritative (permit delays before updates on the host appear in the container)
+
+* `delegated`: the container’s view is authoritative (permit delays before updates on the container appear in the host)
+
+
+
 
 
 # Hello World
