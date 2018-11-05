@@ -729,13 +729,14 @@ Docker’s networking subsystem is pluggable, using drivers. Several drivers exi
 
 * **overlay:** Overlay networks connect multiple Docker daemons together and enable swarm services to communicate with each other. You can also use overlay networks to facilitate communication between a swarm service and a standalone container, or between two standalone containers on different Docker daemons. This strategy removes the need to do OS-level routing between these containers. See overlay networks.
 
-* **macvlan:** Macvlan networks allow you to assign a MAC address to a container, making it appear as a physical device on your network. The Docker daemon routes traffic to containers by their MAC addresses. Using the macvlan driver is sometimes the best choice when dealing with legacy applications that expect to be directly connected to the physical network, rather than routed through the Docker host’s network stack. See Macvlan networks.
-
 * **none:** For this container, disable all networking. Usually used in conjunction with a custom network driver. none is not available for swarm services. See disable container networking.
 
 
+### Docker Machine
 
-* **Network plugins:** You can install and use third-party network plugins with Docker. These plugins are available from Docker Store or from third-party vendors. See the vendor’s documentation for installing and using a given network plugin.
+Docker Machine is a tool that lets you install Docker Engine on virtual hosts, and manage the hosts with `docker-machine` commands. You can use Machine to create Docker hosts on your local Mac or Windows box, on your company network, in your data center, or on cloud providers like Azure, AWS, or Digital Ocean.
+
+Using `docker-machine` commands, you can **start**, **inspect**, **stop**, and **restart** a managed host, upgrade the Docker client and daemon, and configure a Docker client to talk to your host.
 
 
 # References
