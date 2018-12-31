@@ -201,7 +201,7 @@ lets see what happend! read the first line of output,we have diffrent scenario w
 
 - scenario 2
 
-  but what if docker cant find image locally?**if you're not connected from Iran, North Korea, Republic of Crimea, Sudan, and Syria**, in this scenario docker should search on an online repository to find this image!this repositories called **Registery**! after finding image docker will pull this requested image to your local machine storage and start your image to create new **container**
+  but what if docker cant find image locally?**if you're not connected from Iran, North Korea, Republic of Crimea, Sudan, Cuba, and Syria**, in this scenario docker should search on an online repository to find this image!this repositories called **Registery**! after finding image docker will pull this requested image to your local machine storage and start your image to create new **container**
 
   but if you're a citizen of banned regions probeblly you will see this error:
 
