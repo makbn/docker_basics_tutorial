@@ -9,11 +9,11 @@
 
 - Docker by [Wikipedia]()
 
-  > an open-source project that automates the deployment of software applications inside **containers**by providing an additional layer of abstraction and automation of **OS-level virtualization** on Linux.
+  > An open-source project that automates the deployment of software applications inside **containers**by providing an additional layer of abstraction and automation of **OS-level virtualization** on Linux.
 
 - In summary:
 
-  docker is an open-source project that uses **OS-level virtualization technology** to provide an **isolated context** called **container** to **run application without overheads of virtual machines technology** that used traditionally!
+  Docker is an open-source project that uses **OS-level virtualization technology** to provide an **isolated context** called **container** to **run application without overheads of virtual machines technology** that used traditionally!
 
 in few next paragraphs, we will talk about virtualization technology!you can jump to Docker Hello World if you are not interested!
 
@@ -101,11 +101,11 @@ Moreover, virtualization technologies provide a virtual environment for not only
 
   - security(opens the door to a new and unexpected form of phishing)
 
-### container-based Virtualization
+### Container-based Virtualization
 
 Container virtualization (often referred to as operating system virtualization) is more than just a different kind of hypervisor. Containers use the **host operating system** as their base, and **not** the hypervisor. Rather than virtualizing the hardware (which requires full virtualized operating system images for each guest), containers virtualize the OS itself, **sharing the host OS kernel** and its resources with both the host and other containers.
 
-![container](https://www.docker.com/sites/default/files/Container%402x.png)
+![container](https://i.pinimg.com/originals/43/9d/0c/439d0c067bb2b279d6e43adde50e87d7.png)
 
 - **benefits**:
 
