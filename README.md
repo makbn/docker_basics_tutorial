@@ -103,7 +103,7 @@ Moreover, virtualization technologies provide a virtual environment for not only
 
 ### container-based Virtualization
 
-Container virtualization (often referred to as operating system virtualization) is more than just a different kind of hypervisor. Containers use the **host operating system **as their base, and **not** the hypervisor. Rather than virtualizing the hardware (which requires full virtualized operating system images for each guest), containers virtualize the OS itself, **sharing the host OS kernel** and its resources with both the host and other containers.
+Container virtualization (often referred to as operating system virtualization) is more than just a different kind of hypervisor. Containers use the **host operating system** as their base, and **not** the hypervisor. Rather than virtualizing the hardware (which requires full virtualized operating system images for each guest), containers virtualize the OS itself, **sharing the host OS kernel** and its resources with both the host and other containers.
 
 ![container](https://www.docker.com/sites/default/files/Container%402x.png)
 
